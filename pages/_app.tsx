@@ -1,43 +1,43 @@
-import "../styles/globals.css";
-import "normalize.css";
+import { AnimatePresence, motion } from "framer-motion";
 import type { AppProps } from "next/app";
-import { motion, AnimatePresence } from "framer-motion";
+import "normalize.css";
+import { useState } from "react";
+import AnimSwitcher from "../components/AnimSwitcher";
 import Navigation from "../components/Navigation";
+import { animations } from "../lib/animations";
+import "../styles/globals.css";
 
 const pages = [
   { href: "/", name: "Index" },
   { href: "/page-one", name: "One" },
   { href: "/page-two", name: "Two" },
   { href: "/page-three", name: "Three" },
-  { href: "/page-four", name: "Four" },
+  { href: "/page-four", name: "Four" }
 ];
 
-const variants = {
-  initial: {
-    opacity: 0,
-    top: "100px",
-  },
-  animate: {
-    opacity: 1,
-    top: 0,
-  },
-  exit: {
-    opacity: 0,
-    top: "100px",
-  },
-};
 function MyApp({ Component, pageProps, router }: AppProps) {
+  const startIndex = 0;
+  const [animation, setAnimation] = useState(animations[startIndex]);
+
   return (
     <div className="app-wrap">
-      <Navigation pages={pages} />
+      <div className="ui-wrap">
+        <Navigation pages={pages} />
+        <AnimSwitcher
+          anims={animations}
+          setAnimation={setAnimation}
+          startIndex={startIndex}
+        />
+      </div>
       <AnimatePresence exitBeforeEnter>
         <motion.div
-          key={router.route}
+          key={router.route.concat(animation.name)}
           className="page-wrap"
           initial="initial"
           animate="animate"
           exit="exit"
-          variants={variants}
+          variants={animation.variants}
+          transition={animation.transition}
         >
           <Component {...pageProps} />
         </motion.div>

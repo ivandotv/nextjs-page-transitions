@@ -1,7 +1,7 @@
 import { useRouter } from "next/dist/client/router";
 import Link from "next/link";
 export default function Navigation({
-  pages,
+  pages
 }: {
   pages: { href: string; name: string }[];
 }) {
