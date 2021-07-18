@@ -19,10 +19,9 @@ body {
 
 .page-wrap {
   display: flex;
-  position: relative;
+  position: absolute;
   height: 100%;
   width: 100vw;
-  /* padding-top: 30px; */
 }
 
 .page {
@@ -46,7 +45,7 @@ body {
 }
 
 .page-two {
-  background-color: paleturquoise;
+  background-color:#459e9e
 }
 
 .page-three {
@@ -73,10 +72,27 @@ body {
   font-size: 2rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .anim-switch {
   margin-top: 14px;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
 }
+
+.exit-box {
+  color:#fff;
+  display: inline-block;
+  margin-left:14px;
+  cursor: pointer;
+  /* margin:0 14px; */
+}
+
+.exit-box [type='checkbox']{
+ margin:0 8px;
+}
+
 .navigation a {
   display: inline-block;
   color: #fff;

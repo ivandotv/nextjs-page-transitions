@@ -4,22 +4,32 @@ import { animations } from "../lib/animations";
 export default function AnimSwitcher({
   anims,
   setAnimation,
+  setExitBeforeEnter,
   startIndex
 }: {
   setAnimation: (value: any) => void;
+  setExitBeforeEnter:(value:boolean)=>void;
   startIndex: number;
   anims: typeof animations;
 }) {
-  const [value, setValue] = useState(startIndex);
+  const [animValue, setAnimValue] = useState(startIndex);
+  const [exitBefore, setExitBefore] = useState(false);
 
-  const handleChange = (e: React.FormEvent<HTMLSelectElement>) => {
+  const handleAnimChange = (e: React.FormEvent<HTMLSelectElement>) => {
     const v = Number(e.currentTarget.value);
-    setValue(v);
+    setAnimValue(v);
     setAnimation(anims[v]);
   };
+
+  const handleExitBeforeChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const v = e.currentTarget.checked
+    setExitBefore(v)
+    setExitBeforeEnter(v)
+  };
+
   return (
     <div className="anim-switch">
-      <select value={value} onChange={handleChange}>
+      <select value={animValue} onChange={handleAnimChange}>
         {anims.map((animation, index) => {
           return (
             <option value={index} key={animation.name}>
@@ -28,6 +38,10 @@ export default function AnimSwitcher({
           );
         })}
       </select>
+      <label className="exit-box">
+        <input  type="checkbox" checked={exitBefore} onChange={handleExitBeforeChange}/>
+        Overlap page transitions
+      </label>
     </div>
   );
 }
